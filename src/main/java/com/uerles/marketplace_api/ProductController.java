@@ -1,6 +1,7 @@
 package com.uerles.marketplace_api;
 
 
+import com.uerles.marketplace_api.domain.Product;
 import com.uerles.marketplace_api.domain.dtos.ProductDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -25,10 +26,10 @@ public class ProductController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
     }
-    @GetMapping
-    public ResponseEntity<List<ProductDTO>> listAll(){
-        List<ProductDTO> list = service.findAll();
+    @GetMapping("{id}")
+    public ResponseEntity<ProductDTO> listById(@PathVariable Long id){
+        ProductDTO productDTO = service.findById(id);
 
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(productDTO);
     }
 }

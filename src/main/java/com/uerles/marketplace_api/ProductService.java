@@ -3,8 +3,10 @@ package com.uerles.marketplace_api;
 import com.uerles.marketplace_api.domain.Product;
 import com.uerles.marketplace_api.domain.ProductRepository;
 import com.uerles.marketplace_api.domain.dtos.ProductDTO;
+import com.uerles.marketplace_api.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -29,10 +31,9 @@ public class ProductService {
         repository.save(newProduct);
         return ProductDTO.fromEntity(newProduct);
     }
-    public List<ProductDTO> findAll(){
-        List<Product> list = repository.findAll();
-        return list.stream()
-                .map(ProductDTO::fromEntity)
-                .toList();
+    public ProductDTO findById(Long id){
+        Product product = repository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Id nao encotrado"));
+        return ProductDTO.fromEntity(product);
     }
 }
