@@ -6,6 +6,8 @@ import com.uerles.marketplace_api.domain.dtos.ProductDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -26,5 +28,11 @@ public class ProductService {
 
         repository.save(newProduct);
         return ProductDTO.fromEntity(newProduct);
+    }
+    public List<ProductDTO> findAll(){
+        List<Product> list = repository.findAll();
+        return list.stream()
+                .map(ProductDTO::fromEntity)
+                .toList();
     }
 }

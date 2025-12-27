@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -22,5 +24,11 @@ public class ProductController {
         ProductDTO newProduct = service.create(data);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
+    }
+    @GetMapping
+    public ResponseEntity<List<ProductDTO>> listAll(){
+        List<ProductDTO> list = service.findAll();
+
+        return ResponseEntity.ok(list);
     }
 }
