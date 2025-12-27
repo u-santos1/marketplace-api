@@ -21,7 +21,9 @@ public record ProductDTO(
 
         @NotNull
         @Positive
-        Integer quantityStock
+        Integer quantityStock,
+
+        Boolean active
 
 ) {
     public static ProductDTO fromEntity(Product product){
@@ -30,7 +32,8 @@ public record ProductDTO(
                 product.getTitle(),
                 product.getDescription(),
                 product.getPrice(),
-                product.getQuantityStock()
+                product.getQuantityStock(),
+                product.getActive()
         );
     }
 }

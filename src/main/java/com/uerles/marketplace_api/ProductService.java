@@ -6,6 +6,7 @@ import com.uerles.marketplace_api.domain.dtos.ProductDTO;
 import com.uerles.marketplace_api.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -35,5 +36,25 @@ public class ProductService {
         Product product = repository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Id nao encotrado"));
         return ProductDTO.fromEntity(product);
+    }
+    @Transactional
+    public ProductDTO update(Long id, ProductDTO data){
+        Product entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Produto nao encotrado"));
+
+        entity.setTitle(data.title());
+        entity.setDescription(data.description());
+        entity.setPrice(data.price());
+        entity.setQuantityStock(data.quantityStock());
+        repository.save(entity);
+
+        return ProductDTO.fromEntity(entity);
+    }
+    @Transactional
+    public void delete(Long id){
+        Product entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Produto nao encotrado"));
+        entity.setActive(false);
+        repository.save(entity);
     }
 }
