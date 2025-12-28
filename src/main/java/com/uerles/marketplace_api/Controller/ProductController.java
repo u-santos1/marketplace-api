@@ -1,15 +1,12 @@
-package com.uerles.marketplace_api;
+package com.uerles.marketplace_api.Controller;
 
 
-import com.uerles.marketplace_api.domain.Product;
+import com.uerles.marketplace_api.config.Service.ProductService;
 import com.uerles.marketplace_api.domain.dtos.ProductDTO;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")

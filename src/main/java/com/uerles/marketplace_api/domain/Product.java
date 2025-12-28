@@ -32,4 +32,8 @@ public class Product implements Serializable {
 
     private Integer quantityStock;
     private Boolean active = true;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

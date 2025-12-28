@@ -23,7 +23,10 @@ public record ProductDTO(
         @Positive
         Integer quantityStock,
 
-        Boolean active
+        Boolean active,
+
+        @NotNull(message = "A categoria e obrigatoria")
+        Long categoryId
 
 ) {
     public static ProductDTO fromEntity(Product product){
@@ -33,7 +36,10 @@ public record ProductDTO(
                 product.getDescription(),
                 product.getPrice(),
                 product.getQuantityStock(),
-                product.getActive()
+                product.getActive(),
+                product.getCategory() !=
+                        null ? product.getCategory().getId() :
+                        null
         );
     }
 }
